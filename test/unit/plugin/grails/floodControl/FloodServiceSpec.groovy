@@ -2,7 +2,6 @@ package plugin.grails.floodControl
 
 import grails.plugin.spock.UnitSpec
 import groovy.time.TimeCategory
-import spock.lang.Unroll
 
 class FloodServiceSpec extends UnitSpec{
 
@@ -35,7 +34,7 @@ class FloodServiceSpec extends UnitSpec{
         given:
             FloodEntry.count() == 0
         when:
-            service.add( params )
+            service.drizzle( params )
         then:
             FloodEntry.count() == 1
 
@@ -58,7 +57,7 @@ class FloodServiceSpec extends UnitSpec{
 
         when:
             def params = [ user: '2', className: 'com.test.Blip', action: 'create' ]
-            service.add( params )
+            service.drizzle( params )
 
         then:
             service.flooded( params ) == true
@@ -71,7 +70,7 @@ class FloodServiceSpec extends UnitSpec{
             def params = [ user: '2', className: 'com.test.Blip', action: 'create' ]
 
         when:
-            3.times{ service.add( params ) }
+            3.times{ service.drizzle( params ) }
 
         then:
             service.flooded( params + [limit: limit ] ) == expected
@@ -91,7 +90,7 @@ class FloodServiceSpec extends UnitSpec{
             def params = [ user: '2', className: 'com.test.Blip', action: 'create' ]
 
         when:
-            service.add( params )
+            service.drizzle( params )
 
         then:
             use( TimeCategory ){

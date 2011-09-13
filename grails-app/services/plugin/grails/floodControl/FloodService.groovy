@@ -38,7 +38,7 @@ class FloodService {
         }
     }
 
-    def add = { params ->
+    def drizzle = { params ->
         new FloodEntry(key: generateToken(params)).save( flush: true )
     }
 
